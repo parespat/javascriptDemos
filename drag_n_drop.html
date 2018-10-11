@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>Drag n Drop demo </title>
+ <script language="javascript">
+ 	startDrag = function(e) {
+ 		e.preventDefault();
+ 		e.stopPropagation()
+	    let currElm = e.currentTarget;
+	    currElm.style.position = "absolute";
+	    var refX = e.clientX - currElm.offsetLeft;
+	    var refY = e.clientY - currElm.offsetTop;
+	    document.onmousemove = drag;
+	    document.onmouseup = drop;
+
+	    function drag(e) {
+	      e.preventDefault();
+	      e.stopPropagation();
+	      currElm.style.top = e.clientY - refY + "px";
+	      currElm.style.left = e.clientX - refX + "px";
+	    }
+
+	    function drop(e) {
+	      e.preventDefault();
+	      e.stopPropagation();
+	      document.onmousemove = null;
+	      document.onmouseup = null;
+	    }
+  	}
+ </script>
+ <style type="text/css">
+ 	.draggable {
+ 		border: 2px solid blue;
+ 		width: 60px;
+ 		background-color: yellow;
+ 		cursor: pointer;
+ 		padding: 2px
+ 	}
+ 	.outer {
+ 		border: 2px solid green;
+ 		width: 200px;
+ 		background-color: teal;
+ 		padding: 5px;
+ 	}
+ </style>
+</head>
+<body>
+	<div class="outer" onmousedown="startDrag(event)">parent
+	<div class="draggable" onmousedown="startDrag(event)"> drag me! (div) </div>
+	</div>
+	<a onmousedown="startDrag(event)" href="about:blank" target="_blank"> drag me! (link)</button>
+</body>
+</html>
